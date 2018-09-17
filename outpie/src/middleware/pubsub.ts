@@ -5,7 +5,7 @@ export class PubSub {
 
     subscribe(subscriber: Subscriber) {
         PubSubJs.subscribe('all-events', function(id, action) {
-            subscriber.onEvent(id, action);
+            subscriber.onAction(id, action);
         });
     }
     

@@ -1,3 +1,3 @@
 export interface Subscriber {
-    onEvent(id: string, action: string);
+    onAction(id: string, action: string);
 }

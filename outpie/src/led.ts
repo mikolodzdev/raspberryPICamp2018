@@ -20,7 +20,7 @@ export class Led implements Subscriber {
         this.led.setRGBValue(255,0,0);
     }
 
-    onEvent(id: string, action: string) {
+    onAction(id: string, action: string) {
         console.log('ID: ' + id + ', Action: ' + action);
         this.setOn();
     }
