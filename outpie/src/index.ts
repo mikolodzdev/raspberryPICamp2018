@@ -10,23 +10,14 @@ ipcon.connect('localhost', 4223,
 );
 
 ipcon.on(Tinkerforge.IPConnection.CALLBACK_CONNECTED,
-   function (connectReason) {
-      while(true) { 
-         rgbLED.setRGBValue(Math.floor(Math.random() * 255), Math.floor(Math.random() * 255), Math.floor(Math.random() * 255));
-         Thread.sleep(1000);
-      }
-       
-   }
-);
+    function (connectReason) {
+        ipcon.enumerate();
+          rgbLED.setRGBValue(255,0,0);
+    }
+ );
 
-var Thread = {
-	sleep: function(ms) {
-		var start = Date.now();
-		
-		while (true) {
-			var clock = (Date.now() - start);
-			if (clock >= ms) break;
-		}
-		
-	}
-};
+ ipcon.on(Tinkerforge.IPConnection.CALLBACK_ENUMERATE,
+    function(uid, connectedUid, position, hardwareVersion, firmwareVersion, deviceIdentifier, enumerationType) {
+        console.log('UID: '+uid+', Enumeration Type: '+enumerationType);
+    }
+);
