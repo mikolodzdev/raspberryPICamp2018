@@ -46,7 +46,7 @@ export class SQSMessageReceiverLoop {
     }
 }
 
-
+/*
 
 //usage sample:
 
@@ -59,4 +59,4 @@ lr.messageLoop(function(message: string) {
     console.log(message);
 });
 
-
+*/
