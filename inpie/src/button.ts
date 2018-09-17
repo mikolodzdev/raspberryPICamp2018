@@ -1,30 +1,14 @@
 import * as Tinkerforge from "tinkerforge";
+import {TinkerforgeConnection} from "./tinkerforgeConnection";
 
-export interface ButtonConfig {
-    hostname: string;
-    port: number;
-    uid: string;
-}
 
 export class Button{
-
-    private connection: any;
     private button: any;
     private timer: any = undefined;
     private _onClicks: Array<()=>void> = [];
 
-    constructor(config: ButtonConfig){
-        this.connection = new Tinkerforge.IPConnection();
-        this.connection.connect(config.hostname, config.port, () => {
-            throw 'Error';
-        });
-        this.button = new Tinkerforge.BrickletDualButton('vRV', this.connection);
-
-        this.connection.on(Tinkerforge.IPConnection.CALLBACK_CONNECTED,
-            (connectReason) => {
-                this.onConnect();
-            }
-        );
+    constructor(tinkerforgeConnection: TinkerforgeConnection){
+        this.button = new Tinkerforge.BrickletDualButton('vRV', tinkerforgeConnection.connection);
 
         this.button.on(Tinkerforge.BrickletDualButton.CALLBACK_STATE_CHANGED,
             (buttonL, buttonR, ledL, ledR) => {
@@ -49,7 +33,7 @@ export class Button{
         this._onClicks.push(cb);
     }
 
-    protected onConnect(): void {
+    onConnect(): void {
         this.button.setLEDState(
             3,
             3);
