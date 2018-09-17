@@ -1,11 +1,12 @@
 import * as Tinkerforge from "tinkerforge";
 import {TinkerforgeConnection} from "./tinkerforgeConnection";
+import Timer = NodeJS.Timer;
 
 class ButtonControl{
     static speed: number = .1;
 
     onValueChange: ((value: number)=>void)|undefined = undefined;
-    private timer: number = 0;
+    private timer: Timer|undefined = undefined;
     private _value: number = 0;
     private _direction: number = 1;
 
@@ -14,7 +15,7 @@ class ButtonControl{
     get increasing(): boolean {return this._direction > 0;}
 
     start(): void {
-        if(this.timer === 0){
+        if(this.timer === undefined){
             this.timer = setInterval(()=>{
                 this.changeValue();
             }, 100);
@@ -22,10 +23,10 @@ class ButtonControl{
     }
 
     stop(): void {
-        if(this.timer !== 0){
+        if(this.timer !== undefined){
             this._direction = -this._direction;
             clearInterval(this.timer);
-            this.timer = 0;
+            this.timer = undefined;
         }
     }
 
@@ -43,7 +44,7 @@ export class Button{
     private button: any;
     private colorControl: ButtonControl = new ButtonControl();
     private brightnessControl: ButtonControl = new ButtonControl();
-    private _onClicks: Array<()=>void> = [];
+    private _onClicks: Array<(state: boolean)=>void> = [];
     private _onChangeColor: Array<(color: number, brightness: number)=>void> = [];
 
     constructor(tinkerforgeConnection: TinkerforgeConnection){
@@ -52,7 +53,7 @@ export class Button{
         this.button.on(Tinkerforge.BrickletDualButton.CALLBACK_STATE_CHANGED,
             (buttonL, buttonR, ledL, ledR) => {
                 if(buttonL === Tinkerforge.BrickletDualButton.BUTTON_STATE_PRESSED) {
-                    this._onClicks.forEach(cb=>cb());
+                    this._onClicks.forEach(cb=>cb(false));
                     this.colorControl.start();
                 }
                 else if(buttonL === Tinkerforge.BrickletDualButton.BUTTON_STATE_RELEASED) {
@@ -61,7 +62,7 @@ export class Button{
                 }
 
                 if(buttonR === Tinkerforge.BrickletDualButton.BUTTON_STATE_PRESSED) {
-                    this._onClicks.forEach(cb=>cb());
+                    this._onClicks.forEach(cb=>cb(true));
                     this.brightnessControl.start();
                 }
                 else if(buttonR === Tinkerforge.BrickletDualButton.BUTTON_STATE_RELEASED) {
@@ -85,7 +86,7 @@ export class Button{
         this._onChangeColor.forEach(cb=>cb(color, brightness));
     }
 
-    onClick(cb: ()=>void): void {
+    onClick(cb: (state: boolean)=>void): void {
         this._onClicks.push(cb);
     }
 
