@@ -1,5 +1,5 @@
 import * as Tinkerforge from 'tinkerforge'
-import { Subscriber } from './middleware/subscriber';
+import { Subscriber } from '../middleware/subscriber';
 
 export class Led implements Subscriber {
 

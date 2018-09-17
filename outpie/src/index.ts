@@ -1,5 +1,5 @@
 import * as Tinkerforge from 'tinkerforge'
-import { Led } from './led';
+import { Led } from './sensors/led';
 import { PubSub } from './middleware/pubsub';
 
 const HOST = 'localhost';
