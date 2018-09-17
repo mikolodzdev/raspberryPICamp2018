@@ -1,4 +1,4 @@
-import * as Tinkerforge from "tinkerforge"
+import * as Tinkerforge from 'tinkerforge'
 
 export class Led {
 
