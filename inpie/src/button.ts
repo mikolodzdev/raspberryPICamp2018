@@ -44,6 +44,7 @@ export class Button{
     private colorControl: ButtonControl = new ButtonControl();
     private brightnessControl: ButtonControl = new ButtonControl();
     private _onClicks: Array<()=>void> = [];
+    private _onChangeColor: Array<(color: number, brightness: number)=>void> = [];
 
     constructor(tinkerforgeConnection: TinkerforgeConnection){
         this.button = new Tinkerforge.BrickletDualButton('vRV', tinkerforgeConnection.connection);
@@ -81,7 +82,7 @@ export class Button{
     }
 
     private setColorAndBrightness(color: number, brightness: number): void {
-        console.log('color '  + color + ' brightness ' + brightness);
+        this._onChangeColor.forEach(cb=>cb(color, brightness));
     }
 
     onClick(cb: ()=>void): void {
@@ -90,6 +91,10 @@ export class Button{
 
     onConnect(): void {
         this.updateButtonStates();
+    }
+
+    onChangeColorAndBrightness(cb: (color: number, brightness: number)=>void): void {
+        this._onChangeColor.push(cb);
     }
 
     private updateButtonStates(): void {
