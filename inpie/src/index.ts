@@ -1,9 +1,11 @@
 import {Button} from "./button";
+import {TinkerforgeConnection} from "./tinkerforgeConnection";
 
-const b = new Button({
-    hostname: 'localhost',
-    port: 4223,
-    uid: 'vRV'
+const connection = new TinkerforgeConnection();
+
+connection.addOnConnectListener((tc) => {
+  const b = new Button(connection);
+  b.onClick(() => console.log('Click'));
+  b.onConnect()
 });
 
-b.onClick(()=>console.log('Click'));
