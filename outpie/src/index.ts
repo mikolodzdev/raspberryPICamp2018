@@ -29,6 +29,6 @@ ipcon.on(Tinkerforge.IPConnection.CALLBACK_CONNECTED,
             var led = new Led(uid, ipcon);
             pubsub.subscribe(led);
         }
-        pubsub.push("1", "2");
+        pubsub.push('123');
     }
 );

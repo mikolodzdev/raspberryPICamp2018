@@ -4,13 +4,12 @@ import * as PubSubJs from 'pubsub-js';
 export class PubSub {
 
     subscribe(subscriber: Subscriber) {
-        PubSubJs.subscribe('all-events', function(id, action) {
-            subscriber.onAction(id, action);
+        PubSubJs.subscribe('actions', function(msg, action) {
+            subscriber.onAction(msg, action);
         });
     }
     
-    push(id: string, action: string) {
-        PubSubJs.publish('all-events', id, action);
+    push(action: string) {
+        PubSubJs.publish('actions', action);
     }
-
 }
