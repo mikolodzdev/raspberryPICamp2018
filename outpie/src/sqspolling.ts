@@ -48,7 +48,7 @@ export class SQSMessageReceiverLoop {
 
 /*
 
-//usage sample:
+//usage sample (pre-cond: default user ~/.aws/credentials with sufficient permission):
 
 const lr = new SQSMessageReceiverLoop({
     region: 'ew-west-1',
