@@ -1,6 +1,7 @@
 import * as Tinkerforge from 'tinkerforge'
+import { Subscriber } from './middleware/subscriber';
 
-export class Led {
+export class Led implements Subscriber {
 
     private led: Tinkerforge.BrickletRGBLED;
 
@@ -11,8 +12,17 @@ export class Led {
         this.led = new Tinkerforge.BrickletRGBLED(uuid, connection);
     }
 
-    setColor(): void {
+    setOn(): void {
+        this.led.setRGBValue(0,255,0);
+    }  
+    
+    setOff(): void {
         this.led.setRGBValue(255,0,0);
-    }    
+    }
+
+    onEvent(id: string, action: string) {
+        console.log('ID: ' + id + ', Action: ' + action);
+        this.setOn();
+    }
 
 }
