@@ -11,6 +11,7 @@ export class Button{
     private connection: any;
     private button: any;
     private timer: any = undefined;
+    private _onClicks: Array<()=>void> = [];
 
     constructor(config: ButtonConfig){
         this.connection = new Tinkerforge.IPConnection();
@@ -32,6 +33,7 @@ export class Button{
                 }
                 else if(buttonL === Tinkerforge.BrickletDualButton.BUTTON_STATE_RELEASED) {
                     this.button.setLEDState(ledL, 3 );
+                    this._onClicks.forEach(cb=>cb());
                 }
 
                 if(buttonR === Tinkerforge.BrickletDualButton.BUTTON_STATE_PRESSED) {
@@ -41,6 +43,10 @@ export class Button{
                 }
             }
         );
+    }
+
+    onClick(cb: ()=>void): void {
+        this._onClicks.push(cb);
     }
 
     protected onConnect(): void {
@@ -65,6 +71,7 @@ export class Button{
                 this.button.setLEDState(2, ledR);
             else
                 this.button.setLEDState(3, ledR);
+            this._onClicks.forEach(cb=>cb());
         });
     }
 }

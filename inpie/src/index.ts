@@ -5,3 +5,5 @@ const b = new Button({
     port: 4223,
     uid: 'vRV'
 });
+
+b.onClick(()=>console.log('Click'));
