@@ -1,5 +1,5 @@
 import { Subscriber } from './Subscriber';
-var PubSubJs = require('pubsub-js');
+import * as PubSubJs from 'pubsub-js';
 
 export class PubSub {
 
