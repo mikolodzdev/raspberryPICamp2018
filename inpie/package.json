@@ -10,7 +10,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@types/node": "^10.10.0",
     "tinkerforge": "^2.0.18",
+    "typed-rest-client": "^1.0.9",
     "typescript": "^3.0.3"
   },
   "devDependencies": {
