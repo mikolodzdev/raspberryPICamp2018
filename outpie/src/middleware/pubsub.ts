@@ -4,7 +4,7 @@ import * as PubSubJs from 'pubsub-js';
 export class PubSub {
 
     subscribe(subscriber: Subscriber) {
-        PubSubJs.subscribe('actions', function(msg, action) {
+        PubSubJs.subscribeOnce('actions', function(msg, action) {
             subscriber.onAction(msg, action);
         });
     }
