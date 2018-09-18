@@ -5,14 +5,18 @@
   "main": "index.js",
   "scripts": {
     "test": "mocha -r ts-node/register **/*.spec.ts",
-    "live": "tsc -watch"
+    "live": "tsc -watch",
+    "inpie": "tsc && node dist/inpie.js",
+    "outpie": "tsc && node dist/outpie.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "aws-sdk": "^2.315.0",
     "tinkerforge": "^2.0.18",
     "typed-rest-client": "^1.0.9",
-    "typescript": "^3.0.3"
+    "typescript": "^3.0.3",
+    "pubsub-js": "^1.6.0"
   },
   "devDependencies": {
     "@types/node": "^10.10.0",

@@ -3,7 +3,6 @@ import {SensorService} from "./sensors/sensorService";
 import {LambdaSender} from "./lambdaout";
 import {Button} from "./sensors/button";
 
-
 const sensorService = new SensorService();
 sensorService.initializeSensors(sensor => {
   if (sensor instanceof Button) {

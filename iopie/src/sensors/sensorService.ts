@@ -2,6 +2,7 @@ import {Sensor, SensorConstructor} from "./sensor";
 import {TinkerforgeConnection} from "./tinkerforgeConnection";
 import * as Tinkerforge from "tinkerforge";
 import {Button} from "./button";
+import { Nfcr } from "./nfcr";
 
 interface SensorMapping {
   tinkerforgeBricklet: any;
@@ -11,7 +12,8 @@ interface SensorMapping {
 export class SensorService {
   private tinkerforgeConnection: TinkerforgeConnection;
   private tinkerforgeSensorMapping: Array<SensorMapping> = [
-    {tinkerforgeBricklet: Tinkerforge.BrickletDualButton, sensor: Button}
+    {tinkerforgeBricklet: Tinkerforge.BrickletDualButton, sensor: Button},
+    {tinkerforgeBricklet: Tinkerforge.BrickletNFCRFID, sensor: Nfcr}
   ];
 
   constructor() {
@@ -38,6 +40,8 @@ export class SensorService {
   }
 
   private initializeSensor(uid: string, deviceIdentifier: number): Sensor {
+    console.log(deviceIdentifier);
+
     const mapping = this.tinkerforgeSensorMapping.find(value => deviceIdentifier === value.tinkerforgeBricklet.DEVICE_IDENTIFIER);
 
     if(mapping !== undefined){
