@@ -2,6 +2,8 @@ import * as Tinkerforge from 'tinkerforge'
 import { Led } from './sensors/led';
 import { PubSub } from './middleware/pubsub';
 
+import * as SQSPolling from './sqspolling';
+
 const HOST = 'localhost';
 const PORT = 4223;
 const DEVICE_TYPE_LED = 271;
@@ -29,6 +31,18 @@ ipcon.on(Tinkerforge.IPConnection.CALLBACK_CONNECTED,
             var led = new Led(uid, ipcon);
             pubsub.subscribe(led);
         }
-        pubsub.push('123');
+        // pubsub.push('123');
     }
 );
+
+
+const lr = new SQSPolling.SQSMessageReceiverLoop({
+    region: 'us-east-1',
+    url: 'https://sqs.us-east-1.amazonaws.com/650451827578/jap-iot-queue.fifo'
+});
+
+lr.messageLoop(function(message: string) {
+    console.log('message: ' + message);
+    let messageJson = JSON.parse(message);
+    pubsub.push(messageJson.action);
+});

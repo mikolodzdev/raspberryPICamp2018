@@ -22,7 +22,11 @@ export class Led implements Subscriber {
 
     onAction(id: string, action: string) {
         console.log('ID: ' + id + ', Action: ' + action);
-        this.setOff();
+        if(action == 'on') {
+            this.setOn();
+        } else {
+            this.setOff();
+        }
     }
 
 }
