@@ -1,5 +1,8 @@
 import AWS = require('aws-sdk');
 
+const credentials = new AWS.SharedIniFileCredentials({ profile: 'camp2018' });
+AWS.config.credentials = credentials;
+
 export interface SQSMessageReceiverLoopConfig {
     region: string
     url: string
@@ -46,17 +49,13 @@ export class SQSMessageReceiverLoop {
     }
 }
 
-/*
-
 //usage sample (pre-cond: default user ~/.aws/credentials with sufficient permission):
 
-const lr = new SQSMessageReceiverLoop({
-    region: 'ew-west-1',
-    url: 'https://sqs.eu-west-1.amazonaws.com/208464084183/campqueue1'
-});
+// const lr = new SQSMessageReceiverLoop({
+//     region: 'us-east-1',
+//     url: 'https://sqs.us-east-1.amazonaws.com/650451827578/jap-iot-queue.fifo'
+// });
 
-lr.messageLoop(function(message: string) {
-    console.log(message);
-});
-
-*/
+// lr.messageLoop(function(message: string) {
+//     console.log(message);
+// });
