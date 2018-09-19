@@ -4,4 +4,4 @@ WORKDIR /code
 ADD . /code
 RUN npm install
 RUN npm run build
-CMD [ "node", "dist/inpie.js"]
+CMD [ "node",  "./dist/inpie.js"]
