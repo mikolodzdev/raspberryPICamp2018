@@ -1,4 +1,4 @@
-FROM arm32v7/node:10.10-jessie
+FROM resin/raspberrypi3-alpine-node:8-slim
 
 WORKDIR /usr/src/app
 
