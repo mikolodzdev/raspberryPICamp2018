@@ -2,6 +2,9 @@
 
 # Add this file as cronjob:
 # crontab -e
+# errors only:
+# * * * * * /home/pi/iopieImagePuller.sh > /dev/null 2>> /home/pi/iopieImagePuller.log
+# log everything:
 # * * * * * /home/pi/iopieImagePuller.sh >> /home/pi/iopieImagePuller.log 2>&1
 
 
