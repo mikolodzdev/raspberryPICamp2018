@@ -14,7 +14,7 @@ sensorService.initializeSensors(sensor => {
         apiKey: Config.apiKey
       });
 
-      ls.sendClick("testbutton", state ? "on" : "off");
+      ls.send("testbutton", state ? "on" : "off");
 
     });
   }
