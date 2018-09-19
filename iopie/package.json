@@ -6,6 +6,7 @@
   "scripts": {
     "test": "mocha -r ts-node/register **/*.spec.ts",
     "live": "tsc -watch",
+    "build": "tsc",
     "inpie": "tsc && node dist/inpie.js",
     "outpie": "tsc && node dist/outpie.js"
   },

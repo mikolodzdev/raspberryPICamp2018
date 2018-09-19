@@ -2,6 +2,7 @@ import {SensorService} from "./sensors/sensorService";
 
 import {LambdaSender} from "./lambdaout";
 import {Button} from "./sensors/button";
+import {Config} from "./config";
 
 const sensorService = new SensorService();
 sensorService.initializeSensors(sensor => {
@@ -10,7 +11,7 @@ sensorService.initializeSensors(sensor => {
     button.onClick((state: boolean) => {
       const ls = new LambdaSender({
         url: "https://s868ogpjlj.execute-api.us-east-1.amazonaws.com/default/LambdaTheUltimate1",
-        apiKey: process.env.API_KEY || "wrong API key"
+        apiKey: Config.apiKey
       });
 
       ls.sendClick("testbutton", state ? "on" : "off");

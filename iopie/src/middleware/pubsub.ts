@@ -1,4 +1,4 @@
-import { Subscriber } from './Subscriber';
+import { Subscriber } from './subscriber';
 import * as PubSubJs from 'pubsub-js';
 
 export class PubSub {
