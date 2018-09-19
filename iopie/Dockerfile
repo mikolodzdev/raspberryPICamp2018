@@ -1,4 +1,4 @@
-FROM arm32v7/node:8.12-slim
+FROM arm32v7/node:10.10-jessie
 
 WORKDIR /usr/src/app
 
