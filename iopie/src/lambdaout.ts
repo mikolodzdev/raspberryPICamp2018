@@ -15,7 +15,7 @@ export class LambdaSender {
         this.httpc = new httpm.HttpClient('my-client');
     }
 
-    public async sendClick(id:String,action:String) {
+    public async send(id:String,action:String) {
         let headers: ifm.IHeaders= {}
         headers["Content-Type"] = "application/json";
         headers["x-api-key"] = this.config.apiKey;
@@ -26,7 +26,7 @@ export class LambdaSender {
         let body: string = await res.readBody();
         let body_s = JSON.parse(body);
 
-        console.log("sendClick response", body_s); //DEBUG
+        console.log("send response", body_s); //DEBUG
     }
 }
 

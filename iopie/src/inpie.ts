@@ -13,7 +13,7 @@ sensorService.initializeSensors(sensor => {
         apiKey: process.env.API_KEY || "wrong API key"
       });
 
-      ls.sendClick("testbutton", state ? "on" : "off");
+      ls.send("testbutton", state ? "on" : "off");
 
     });
   }
