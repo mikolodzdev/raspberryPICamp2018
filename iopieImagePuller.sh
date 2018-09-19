@@ -2,7 +2,7 @@
 
 # Add this file as cronjob:
 # crontab -e
-# * * * * * /home/pi/iopieImagePuller.sh > /dev/null 2>> /home/pi/iopieImagePuller.log
+# * * * * * /home/pi/iopieImagePuller.sh >> /home/pi/iopieImagePuller.log 2>&1
 
 
 ApiKey="-" # insert api key here!

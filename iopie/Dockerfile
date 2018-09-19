@@ -1,4 +1,4 @@
-FROM node:8.12.0-alpine
+FROM resin/raspberry-pi-alpine-node:9.11-slim
 
 WORKDIR /usr/src/app
 
