@@ -1,4 +1,4 @@
-FROM resin/raspberrypi3-alpine-node:8-slim
+FROM arm32v7/node:8.12-slim
 
 WORKDIR /usr/src/app
 
