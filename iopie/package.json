@@ -16,7 +16,8 @@
     "tinkerforge": "^2.0.18",
     "typed-rest-client": "^1.0.9",
     "typescript": "^3.0.3",
-    "pubsub-js": "^1.6.0"
+    "pubsub-js": "^1.6.0",
+    "aws-iot-device-sdk":"^2.2.1"
   },
   "devDependencies": {
     "@types/node": "^10.10.0",

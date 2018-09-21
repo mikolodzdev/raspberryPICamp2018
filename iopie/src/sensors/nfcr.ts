@@ -1,14 +1,49 @@
 import { Sensor } from './sensor';
 import { TinkerforgeConnection } from './tinkerforgeConnection';
 import * as Tinkerforge from 'tinkerforge';
-import { LambdaSender } from '../lambdaout';
+
+const deviceModule = require('aws-iot-device-sdk').device;
 
 export class Nfcr implements Sensor {
-    
+
+    private device = deviceModule({
+        keyPath: process.env.CREDS_PATH + '5315881a04-private.pem.key',
+        certPath: process.env.CREDS_PATH + '5315881a04-certificate.pem.crt',
+        caPath: process.env.CREDS_PATH + 'root-CA.crt',
+        clientId: 'sdk-nodejs-26a45225-bb3c-459b-910d-cd8e6eddd96e',
+        host: 'a1uxmylv3609ae.iot.us-east-1.amazonaws.com',
+        region: 'us-east-1'
+    });
+
     private nfcr: Tinkerforge.BrickletNFCRFID;
     private onState: boolean = false;
+
     constructor(uid: string, tinkerforgeConnection: TinkerforgeConnection) {
         this.nfcr = new Tinkerforge.BrickletNFCRFID(uid, tinkerforgeConnection.connection);
+   
+        this.device.on('connect', () => {
+            console.log('connect');
+        });
+
+        this.device.on('close', () => {
+            console.log('close');
+        });
+
+        this.device.on('reconnect',() => {
+            console.log('reconnect');
+        });
+
+        this.device.on('offline', () => {
+            console.log('offline');
+        });
+
+        this.device.on('error', (error) => {
+            console.log('error', error);
+        });
+
+        this.device.on('message', (topic, payload) => {
+            console.log('message', topic, payload.toString());
+        });
     }
 
     onConnect() {
@@ -26,11 +61,14 @@ export class Nfcr implements Sensor {
                         
                         if (newOnState != this.onState) {
                             this.onState = newOnState;
-                            const ls = new LambdaSender({
-                                url: 'https://s868ogpjlj.execute-api.us-east-1.amazonaws.com/default/LambdaTheUltimate1',
-                                apiKey: process.env.API_KEY || 'wrong API key'
-                              });
-                              ls.send('testnfcr', this.onState ? 'on' : 'off');
+ 
+                            console.log('State: ' + this.onState);
+
+                            console.log('publish');
+                            this.device.publish('topic_camp_1', JSON.stringify({
+                                action: this.onState ? 'on' : 'off'
+                            }));
+
                         }}, (error) => {
                             console.log('Error: ' + error);
                         }

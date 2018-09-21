@@ -29,7 +29,7 @@ ipcon.on(Tinkerforge.IPConnection.CALLBACK_CONNECTED,
         console.log('UID: ' + uid + ', Enumeration Type: ' + deviceIdentifier);
         if (deviceIdentifier == DEVICE_TYPE_LED) {
             var led = new Led(uid, ipcon);
-            pubsub.subscribe(led);
+            //pubsub.subscribe(led);
         }
         // pubsub.push('123');
     }
